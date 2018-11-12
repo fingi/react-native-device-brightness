@@ -7,10 +7,27 @@
 //
 
 #import "RNDeviceBrightness.h"
+#import "RCTEventDispatcher.h"
 
 @implementation RNDeviceBrightness
 
-RCT_EXPORT_MODULE()
+@synthesize bridge = _bridge;
+
+RCT_EXPORT_MODULE();
+
+- (instancetype)init
+{
+    if ((self = [super init])) {
+         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(brightnessDidChange:) name:UIScreenBrightnessDidChangeNotification object:nil];
+    }
+    return self;
+}
+
+-(void) brightnessDidChange:(NSNotification*)notification
+{
+    NSLog(@"Brightness did change");
+    [self.bridge.eventDispatcher sendAppEventWithName:@"BrightnessChanged" body:@{@"brightness":@([UIScreen mainScreen].brightness)}];
+}
 
 RCT_EXPORT_METHOD(setBrightnessLevel:(float)brightnessLevel)
 {
