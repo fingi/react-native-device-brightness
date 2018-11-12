@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <React/RCTBridgeModule.h>
+#import "RCTBridgeModule.h"
 
 @interface RNDeviceBrightness : NSObject <RCTBridgeModule>
 
