@@ -10,5 +10,5 @@
 #import "RCTBridgeModule.h"
 
 @interface RNDeviceBrightness : NSObject <RCTBridgeModule>
-
+@property(strong) dispatch_source_t debounceTimer;
 @end
